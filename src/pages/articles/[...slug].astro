@@ -1,0 +1,21 @@
+---
+import { undefined } from "astro:schema";
+import MainLayout from "../../layouts/Mainlayout.astro";
+import { getEntry } from "astro:content";
+
+const {slug} = Astro.params;
+    if(slug === undefined){
+        throw new Error("No slug provided");
+    }
+    const entry = await getEntry('blog',slug);
+    if(entry === undefined){
+        return Astro.redirect('/404');
+    }
+
+const {Content} = await entry.render;
+
+ 
+---
+<MainLayout>
+<h1>Article</h1>
+</MainLayout>
